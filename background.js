@@ -22,8 +22,14 @@ var config = {};
 
 
 chrome.extension.onRequest.addListener( function(request, sender, sendResponse) {
-  console.log('Background.js, onRequest function: ')
-  console.log(request);
-  console.log(sender);
-  sendResponse({sender: 'background.js'})
+
+  if (request.code) {
+    sendResponse({result: eval(request.code)});
+  } else {
+    console.log('Background.js, onRequest function: ')
+    console.log(request);
+    console.log(sender);
+    sendResponse({sender: 'background.js'})
+  }
+
 });
